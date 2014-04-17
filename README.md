@@ -46,3 +46,30 @@ For a HTTP HEAD request example simply change the call method to:
 $res = $req->head();
 ...
 ```
+
+## HTTP Options
+HTTP Request properties can be used to change HTTP request options
+
+### Referer
+A custom referer can be set using:
+```php
+$req->referer = 'http://www.example.com';
+```
+
+### Request Timeout
+The request timeout (in seconds) can be modified using:
+```php
+$req->timeout_seconds = 10;
+```
+
+### Use cURL Library
+By default the HTTP package uses the *file_get_contents()* function for HTTP requests, this can be change to use the cURL library using the option:
+```php
+$req->use_curl = true;
+```
+
+### User Agent
+A custom user agent can be set using:
+```php
+$req->user_agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.8) Gecko/2009032609 Firefox/3.0.8';
+```
