@@ -47,6 +47,7 @@ $res = $req->head();
 ...
 ```
 
+
 ## Other Response Class Methods
 The HTTP Response class has several other helpful methods
 
@@ -77,6 +78,7 @@ $extracted_data = $res->extract('/keyword[^\.]+\./i');
 // and can use callback to modify array strings, like removing all HTML tags from strings:
 $extracted_data_clean = $res->extract('/keyword[^\.]+\./i', function($v) { return strip_tags($v); });
 ```
+
 
 ## HTTP Options
 HTTP Request properties can be used to change HTTP request options
