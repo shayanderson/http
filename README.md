@@ -47,6 +47,37 @@ $res = $req->head();
 ...
 ```
 
+## Other Response Class Methods
+The HTTP Response class has several other helpful methods
+
+### getHeadersObject():\stdClass
+This method returns the headers in an objects so header data can be accessed like:
+```php
+$headers = $res->getHeadersObject();
+echo 'Server type: ' . $headers->server;
+```
+
+### getRequestUrl():string
+Gets the original request URL with query string (if relates to request method type)
+
+### match($str_or_pattern):int
+This method can be used to check the count of any value or regex pattern in the response string, for example:
+```php
+echo 'Match count: ' . $res->match('keyword'); // total count
+// or use regex pattern like /x/
+echo 'Match count: ' . $res->match('/keyword/i'); // total count
+```
+
+### extract(string $regex_pattern, callable $array_map_callback):array
+This method is used to extract data from the response string based on regex pattern, for example:
+```php
+// get array of all strings that have 'keword' and end with '.'
+$extracted_data = $res->extract('/keyword[^\.]+\./i');
+
+// and can use callback to modify array strings, like removing all HTML tags from strings:
+$extracted_data_clean = $res->extract('/keyword[^\.]+\./i', function($v) { return strip_tags($v); });
+```
+
 ## HTTP Options
 HTTP Request properties can be used to change HTTP request options
 
