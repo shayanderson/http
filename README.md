@@ -8,26 +8,33 @@ Use example.php to test:
 require_once './lib/Http/Request.php';
 require_once './lib/Http/Response.php';
 
-// create new HTTP request object
-$req = new \Http\Request('http://www.example.com/');
-
-// set request params example:
-$req->param('var1', 'value_1');
-$req->param('var2', 'value_2');
-
-// set HTTP Response object with HTTP GET request
-$res = $req->get();
-
-if($res->is_success) // 200/OK
+try
 {
-	echo 'Response code: ' . $res->getResponseCode() . ', '; // ex: 200
-	echo 'Response headers: ' . print_r($res->getHeaders(), true) . ', '; // array of headers
-	echo 'Total seconds taken: ' . $res->getElapsedTime() . ', '; // total seconds for request
-	echo 'Response string: ' . $res->getResponseString();
+	// create new HTTP request object
+	$req = new \Http\Request('htp://www.example.com/');
+
+	// set request params example:
+	$req->param('var1', 'value_1');
+	$req->param('var2', 'value_2');
+
+	// set HTTP Response object with HTTP GET request
+	$res = $req->get();
+
+	if($res->is_success) // 200/OK
+	{
+		echo 'Response code: ' . $res->getResponseCode() . ', '; // ex: 200
+		echo 'Response headers: ' . print_r($res->getHeaders(), true) . ', '; // array of headers
+		echo 'Total seconds taken: ' . $res->getElapsedTime() . ', '; // total seconds for request
+		echo 'Response string: ' . $res->getResponseString();
+	}
+	else if($res->is_error) // print error
+	{
+		echo 'Error: ' . $res->error;
+	}
 }
-else if($res->is_error) // print error
+catch(\Exception $ex)
 {
-	echo 'Error: ' . $res->error;
+	echo 'Exception: ' . $ex->getMessage();
 }
 ```
 
