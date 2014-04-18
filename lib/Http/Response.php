@@ -3,7 +3,7 @@
  * HTTP Request/Response Package for PHP 5.4+
  *
  * @package HTTP
- * @version 1.0 - Apr 17, 2014
+ * @version 1.0 - Apr 18, 2014
  * @copyright 2014 Shay Anderson <http://www.shayanderson.com>
  * @license MIT License <http://www.opensource.org/licenses/mit-license.php>
  * @link <https://github.com/shayanderson/http>
@@ -153,7 +153,7 @@ class Response
 	{
 		if(@preg_match_all($regex_pattern, $this->__str, $m) === false) // error
 		{
-			throw new \InvalidArgumentException(__METHOD__ . ': Invalid match regex pattern "'
+			throw new \InvalidArgumentException(__METHOD__ . ': invalid match regex pattern "'
 				. $regex_pattern . '"');
 		}
 		else if(isset($m[0]))
@@ -247,7 +247,7 @@ class Response
 		{
 			if(@preg_match_all($str_or_pattern, $this->__str, $m) === false) // error
 			{
-				throw new \InvalidArgumentException(__METHOD__ . ': Invalid match regex pattern "'
+				throw new \InvalidArgumentException(__METHOD__ . ': invalid match regex pattern "'
 					. $str_or_pattern . '"');
 			}
 			else if(isset($m[0]))

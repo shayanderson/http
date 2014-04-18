@@ -3,7 +3,7 @@
  * HTTP Request/Response Package for PHP 5.4+
  *
  * @package HTTP
- * @version 1.0 - Apr 17, 2014
+ * @version 1.0 - Apr 18, 2014
  * @copyright 2014 Shay Anderson <http://www.shayanderson.com>
  * @license MIT License <http://www.opensource.org/licenses/mit-license.php>
  * @link <https://github.com/shayanderson/http>
@@ -101,7 +101,8 @@ class Request
 		{
 			if(!function_exists('curl_init')) // ensure cURL support
 			{
-				throw new \BadFunctionCallException('Function curl_init not found, install cURL library');
+				throw new \BadFunctionCallException(__METHOD__
+					. ': function curl_init not found, install cURL library');
 			}
 			else
 			{
