@@ -3,7 +3,7 @@
  * HTTP Request/Response Package for PHP 5.4+
  *
  * @package HTTP
- * @version 1.0 - Apr 18, 2014
+ * @version 1.0
  * @copyright 2014 Shay Anderson <http://www.shayanderson.com>
  * @license MIT License <http://www.opensource.org/licenses/mit-license.php>
  * @link <https://github.com/shayanderson/http>

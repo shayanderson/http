@@ -3,7 +3,7 @@
  * HTTP Request/Response Package for PHP 5.4+
  *
  * @package HTTP
- * @version 1.0 - Apr 18, 2014
+ * @version 1.0
  * @copyright 2014 Shay Anderson <http://www.shayanderson.com>
  * @license MIT License <http://www.opensource.org/licenses/mit-license.php>
  * @link <https://github.com/shayanderson/http>
@@ -39,6 +39,13 @@ class Request
 	 * @var string
 	 */
 	private $__url;
+
+	/**
+	 * Follow redirects/locations (ex: 301)
+	 *
+	 * @var boolean
+	 */
+	public $follow_redirects = true;
 
 	/**
 	 * Request referer
@@ -123,6 +130,11 @@ class Request
 					CURLOPT_CONNECTTIMEOUT => $this->timeout_seconds
 				]);
 
+				if($this->follow_redirects)
+				{
+					curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+				}
+
 				if($method === self::METHOD_HEAD)
 				{
 					curl_setopt($curl, CURLOPT_NOBODY, 1);
@@ -160,9 +172,14 @@ class Request
 				]
 			];
 
+			if($this->follow_redirects)
+			{
+				$params['http']['follow_location'] = true;
+			}
+
 			if($method === self::METHOD_HEAD)
 			{
-				$params['http']['follow_location'] = 0; // do not follow for HEAD request
+				$params['http']['follow_location'] = false; // do not follow for HEAD request
 			}
 
 			if($method === self::METHOD_POST)
