@@ -87,8 +87,7 @@ class Request
 	 */
 	public function __construct($url)
 	{
-		if(empty($url)
-			|| !preg_match('/(https?:\/\/(\S*?\.\S*?))(\s|\;|\)|\]|\[|\{|\}|,|\"|\'|:|\<|$|\.\s)/i', $url))
+		if(!self::isValidUrl($url))
 		{
 			throw new \InvalidArgumentException(__METHOD__ . ': invalid URL "' . $url . '"');
 		}
@@ -253,6 +252,18 @@ class Request
 	public function head()
 	{
 		return $this->__getHttpResponse(self::METHOD_HEAD);
+	}
+
+	/**
+	 * Validate URL
+	 *
+	 * @param string $url
+	 * @return boolean
+	 */
+	public static function isValidUrl($url)
+	{
+		return !empty($url)
+			&& preg_match('/(http(s)?:\/\/(\S*?\.\S*?))(\s|\;|\)|\]|\[|\{|\}|,|\"|\'|:|\<|$|\.\s)/i', $url);
 	}
 
 	/**
