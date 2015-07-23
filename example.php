@@ -4,7 +4,7 @@
  *
  * @package HTTP
  * @version 1.0
- * @copyright 2014 Shay Anderson <http://www.shayanderson.com>
+ * @copyright 2015 Shay Anderson <http://www.shayanderson.com>
  * @license MIT License <http://www.opensource.org/licenses/mit-license.php>
  * @link <https://github.com/shayanderson/http>
  */

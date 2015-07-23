@@ -4,7 +4,7 @@
  *
  * @package HTTP
  * @version 1.0
- * @copyright 2014 Shay Anderson <http://www.shayanderson.com>
+ * @copyright 2015 Shay Anderson <http://www.shayanderson.com>
  * @license MIT License <http://www.opensource.org/licenses/mit-license.php>
  * @link <https://github.com/shayanderson/http>
  */
@@ -46,6 +46,13 @@ class Request
 	 * @var boolean
 	 */
 	public $follow_redirects = true;
+
+	/**
+	 * Proxy server IP address and port (ex: '1.2.3.4:8080')
+	 *
+	 * @var string
+	 */
+	public $proxy;
 
 	/**
 	 * Request referer
@@ -159,6 +166,11 @@ class Request
 					curl_setopt($curl, CURLOPT_USERAGENT, $this->user_agent);
 				}
 
+				if(!empty($this->proxy))
+				{
+					curl_setopt($curl, CURLOPT_PROXY, $this->proxy);
+				}
+
 				return new Response(['url' => $request_url], microtime(true), $curl);
 			}
 		}
@@ -194,6 +206,12 @@ class Request
 			if(!empty($this->user_agent))
 			{
 				$params['http']['user_agent'] = $this->user_agent;
+			}
+
+			if(!empty($this->proxy))
+			{
+				$params['http']['proxy'] = "tcp://$this->proxy";
+				$params['http']['request_fulluri'] = true;
 			}
 
 			$request_url = $this->__url;
