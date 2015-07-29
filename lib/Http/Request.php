@@ -48,6 +48,13 @@ class Request
 	public $follow_redirects = true;
 
 	/**
+	 * Add headers (ex: ['Accept-Language: en-US', 'Accept-Encoding: gzip, deflate'])
+	 *
+	 * @var array
+	 */
+	public $headers = [];
+
+	/**
 	 * Proxy server IP address and port (ex: '1.2.3.4:8080')
 	 *
 	 * @var string
@@ -171,6 +178,11 @@ class Request
 					curl_setopt($curl, CURLOPT_PROXY, $this->proxy);
 				}
 
+				if(is_array($this->headers) && !empty($this->headers)) // additional headers
+				{
+					curl_setopt($curl, CURLOPT_HTTPHEADER, $this->headers);
+				}
+
 				return new Response(['url' => $request_url], microtime(true), $curl);
 			}
 		}
@@ -201,6 +213,19 @@ class Request
 			if(!empty($this->referer))
 			{
 				$params['http']['header'] .= 'Referer: ' . $this->referer . "\r\n";
+			}
+
+			if(is_array($this->headers) && !empty($this->headers)) // additional headers
+			{
+				if(!isset($params['http']['header']))
+				{
+					$params['http']['header'] = '';
+				}
+
+				foreach($this->headers as $v)
+				{
+					$params['http']['header'] .= "{$v}\r\n";
+				}
 			}
 
 			if(!empty($this->user_agent))
